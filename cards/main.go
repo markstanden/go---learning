@@ -1,9 +1,10 @@
 package main
+
 import "fmt"
+
 func main() {
 	cards := newDeck()
 	hand, remainingDeck := deal(cards, 5)
-
 
 	fmt.Println("Hand: ")
 	hand.print()
@@ -11,4 +12,9 @@ func main() {
 	remainingDeck.print()
 	fmt.Println("Single string: ", hand.toString())
 
+	fmt.Println("Saving...")
+	hand.saveToFile("myCards")
+
+	fmt.Println("loading...")
+	readFromFile("myCardns").print()
 }
