@@ -9,6 +9,7 @@ import (
 	"math/rand"
 	"os"
 	"strings"
+	"time"
 )
 
 /** seperator Constant details */
@@ -75,6 +76,9 @@ func readFromFile(filename string) deck {
 }
 
 func (d deck) shuffle(swaps int) {
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
 	for i := 0; i <= swaps; i++ {
 		/*
 			'easy' way from go library
@@ -87,7 +91,7 @@ func (d deck) shuffle(swaps int) {
 		/* Hard Way ;-) */
 		for j := range d {
 			/* rand.Intn(n int) returns a random int from [0,n) */
-			k := rand.Intn(len(d))
+			k := r.Intn(len(d))
 			d[j], d[k] = d[k], d[j]
 		}
 
