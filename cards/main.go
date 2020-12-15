@@ -4,6 +4,7 @@ import "fmt"
 
 func main() {
 	cards := newDeck()
+	cards.shuffle(100)
 	hand, remainingDeck := deal(cards, 5)
 
 	fmt.Println("Hand: ")
@@ -13,8 +14,9 @@ func main() {
 	fmt.Println("Single string: ", hand.toString())
 
 	fmt.Println("Saving...")
-	hand.saveToFile("myCards")
+	cards.saveToFile("myCards")
 
 	fmt.Println("loading...")
-	readFromFile("myCardns").print()
+	readFromFile("myCards").print()
+
 }

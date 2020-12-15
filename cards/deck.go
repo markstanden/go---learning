@@ -6,6 +6,7 @@ Import format package
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"os"
 	"strings"
 )
@@ -71,4 +72,24 @@ func readFromFile(filename string) deck {
 		os.Exit(1)
 	}
 	return fromString(string(bs))
+}
+
+func (d deck) shuffle(swaps int) {
+	for i := 0; i <= swaps; i++ {
+		/*
+			'easy' way from go library
+			rand.Shuffle(len(d), func(j int, k int) {
+				d[j], d[k] = d[k], d[j]
+
+			})
+		*/
+
+		/* Hard Way ;-) */
+		for j := range d {
+			/* rand.Intn(n int) returns a random int from [0,n) */
+			k := rand.Intn(len(d))
+			d[j], d[k] = d[k], d[j]
+		}
+
+	}
 }
