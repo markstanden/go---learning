@@ -57,7 +57,7 @@ func (d deck) toString() string {
 }
 
 func fromString(s string) deck {
-	return deck(strings.Split(s, seperator)
+	return deck(strings.Split(s, seperator))
 }
 
 func (d deck) saveToFile(filename string) error {
