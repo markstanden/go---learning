@@ -1,6 +1,8 @@
 package main
 
-// import format package
+/*
+Import format package
+*/
 import (
 	"fmt"
 	"io/ioutil"
@@ -8,14 +10,14 @@ import (
 	"strings"
 )
 
-/** SEPERATOR Constant details */
-const SEPERATOR string = ","
+/** seperator Constant details */
+const seperator string = ","
 
 // Create a new type 'deck'
 //which is a slice of strings/** SEPERATOR Constant details */
 type deck []string
 
-/**
+/*
 Creates a new deck
 */
 func newDeck() deck {
@@ -25,20 +27,20 @@ func newDeck() deck {
 
 	for _, suit := range cardSuits {
 		for _, value := range cardValues {
-			cards = append(cards, (value + " of " + suit))
+			cards = append(cards, value+" of "+suit)
 		}
 	}
 	return cards
 }
 
-/**
+/*
 Deals a hand from the deck, returns the new hand, and the remainder of the deck
 */
 func deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
 }
 
-/**
+/*
 Displays the content of the deck
 */
 func (d deck) print() {
@@ -47,15 +49,15 @@ func (d deck) print() {
 	}
 }
 
-/**
-turns the deck into a single string, items separated by the SEPERATOR constant
+/*
+turns the deck into a single string, items separated by the separator constant
 */
 func (d deck) toString() string {
-	return strings.Join([]string(d), SEPERATOR)
+	return strings.Join([]string(d), seperator)
 }
 
 func fromString(s string) deck {
-	return deck(strings.Split(s, SEPERATOR))
+	return deck(strings.Split(s, seperator)
 }
 
 func (d deck) saveToFile(filename string) error {
