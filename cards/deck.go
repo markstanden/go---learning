@@ -16,7 +16,7 @@ import (
 const seperator string = ","
 
 // Create a new type 'deck'
-//which is a slice of strings/** SEPERATOR Constant details */
+//which is a slice of strings
 type deck []string
 
 /*
@@ -78,6 +78,7 @@ func readFromFile(filename string) deck {
 func (d deck) shuffle(swaps int) {
 	source := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(source)
+
 
 	for i := 0; i <= swaps; i++ {
 		/*
