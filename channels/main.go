@@ -19,39 +19,40 @@ func main() {
 		"http://amazon.com",
 		"http://github.com",
 	}
-
-if serialCheckAll(urls) {
-	fmt.Println("-- All OK --")
-} else {
-	fmt.Println("-- We have an issue --")
-}
+	serialCheckAll(urls)
 }
 
-func serialCheckAll(urls []string) bool {
+func serialCheckAll(urls []string) {
+	c := make(chan string)
+
 	defer timer(time.Now(), "Serial URL Checking Function")
 
-	errLog := true
 	for _, u := range urls {
-		go e := checkLink(u)
-		if e != nil {
-			errLog = false
-		}
+		go checkLink(u, c)
 	}
-	if errLog {return true}
-	return false
+	for link := range c {
+		go func(l string) {
+			time.Sleep(5 * time.Second)
+			checkLink(l, c)
+		}(link)
+
+	}
+
 }
 
-func checkLink(url string) error {
+func checkLink(url string, c chan string) {
 	_, e := http.Get(url)
 	if e != nil {
 		fmt.Printf("connection to %v failed, link is down\n", url)
-		return e
+		c <- url
+		return
 	}
-		fmt.Printf("connection to %v successful, link is up\n", url)
-		return nil
+	fmt.Printf("connection to %v successful, link is up\n", url)
+	c <- url
+	return
 }
 
 func timer(st time.Time, n string) {
-    et := time.Since(st)
-    fmt.Printf("\n%s ran for %s seconds\n", n, et)
+	et := time.Since(st)
+	fmt.Printf("\n%s ran for %s seconds\n", n, et)
 }
