@@ -6,29 +6,33 @@ import (
 
 type triangle struct {
 	height float64
-	width float64
+	base  float64
 }
 
 type square struct {
-	height float64
+	sideLength float64
 }
 
 type shape interface {
 	getArea() float64
 }
 
-func (s square) getArea() float64 {
-	return s.height * s.height
+func (sq square) getArea() float64 {
+	return sq.sideLength * sq.sideLength
 }
 
-func (t triangle) getArea() float64 {
-	return 0.5*t.width*t.height
+func (tri triangle) getArea() float64 {
+	return 0.5 * tri.base * tri.height
 }
 
-func (shape) printArea() {
+func printArea(s shape) {
 	fmt.Println(s.getArea())
 }
 
 func main() {
-	fmt.Println("Hello")
+	s := square{sideLength: 10}
+	t := triangle{height: 10, base: 20}
+
+	printArea(s)
+	printArea(t)
 }
